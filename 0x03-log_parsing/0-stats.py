@@ -7,7 +7,11 @@ import re
 def parse_log_line(line, metrics):
     ''' extract file size and status code '''
     # Define a regular expression pattern to match the desired components
-    pattern = r'(\d+\.\d+\.\d+\.\d+) - \[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+)\] "GET /projects/260 HTTP/1.1" (\d+) (\d+)'
+    pattern = (
+               r'(\d+\.\d+\.\d+\.\d+) - \[('
+               r'\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d+)\] '
+               r'"GET /projects/260 HTTP/1.1" (\d+) (\d+)'
+    )
 
     # Use re.match to find the components in the input line
     match = re.match(pattern, line)
@@ -18,7 +22,9 @@ def parse_log_line(line, metrics):
         file_size = int(match.group(4))
 
         metrics['total_file_size'] += file_size
-        metrics['status_codes'][status_code] = metrics['status_codes'].get(status_code, 0) + 1
+        metrics['status_codes'][status_code] = (
+                metrics['status_codes'].get(status_code, 0) + 1
+        )
 
     else:
         print("Failed to parse the input line.")
