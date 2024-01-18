@@ -9,19 +9,26 @@ const params = {
   method: 'GET'
 };
 
-request(params, (error, response, body) => {
+request(params, async(error, response, body) => {
   if (!error) {
     const caractersList = JSON.parse(body).characters;
-    printCaracter(caractersList);
+    for(const caractersUrl of caractersList){
+        const caracter = await printCaracter(caractersUrl);
+        console.log(caracter.name);
+    }
   }
 });
 
-function printCaracter (characters) {
-  for (let idx = 0; idx < characters.length; idx++) {
-    request(characters[idx], (error, response, body) => {
-      if (!error) {
-        console.log(JSON.parse(body).name);
-      }
-    });
-  }
+function printCaracter (caractersUrl) {
+    return new Promise((resolve, reject) => {
+        request(caractersUrl, function(error, response, body) {
+          if (error || response.statusCode !== 200) {
+            console.error('Error fetching character details:', error);
+            reject(error || response.statusCode);
+          } else {
+            const characterData = JSON.parse(body);
+            resolve(characterData);
+          }
+        });
+      });
 }
