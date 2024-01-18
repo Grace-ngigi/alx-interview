@@ -18,7 +18,7 @@ request(params, (error, response, body) => {
 
 function printCaracter (characters) {
   for (let idx = 0; idx < characters.length; idx++) {
-    request(characters[idx], function (error, response, body) {
+    request(characters[idx], (error, response, body) => {
       if (!error) {
         console.log(JSON.parse(body).name);
       }
