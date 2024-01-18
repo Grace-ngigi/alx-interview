@@ -1,0 +1,15 @@
+{
+  "name": "starwars_api",
+  "version": "1.0.0",
+  "description": "prints all characters of a Star Wars movie",
+  "main": "0-starwars_characters.js",
+  "scripts": {
+    "dev": "node main",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
