@@ -18,8 +18,11 @@ def parse_log_line(line, metrics):
 
     if match:
         # Extract matched components
-        status_code = int(match.group(3))
-        file_size = int(match.group(4))
+        try:
+            status_code = int(match.group(3))
+            file_size = int(match.group(4))
+        except ValueError:
+            return
 
         metrics['total_file_size'] += file_size
         metrics['status_codes'][status_code] = (
