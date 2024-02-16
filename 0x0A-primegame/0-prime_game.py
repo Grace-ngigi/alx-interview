@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+''' Prime game '''
+
+
 def generate_primes_sieve(n):
     ''' generate primes sieve '''
     primes = [True] * (n+1)
