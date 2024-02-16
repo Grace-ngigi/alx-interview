@@ -11,12 +11,13 @@ def generate_primes_sieve(n):
         p += 1
     return [i for i in range(n+1) if primes[i]]
 
+
 def isWinner(x, nums):
     ''' determine te winner '''
     primes = generate_primes_sieve(max(nums))
     maria_wins = 0
     ben_wins = 0
-    
+
     for n in nums:
         prime_count = sum(1 for prime in primes if prime <= n)
         if prime_count % 2 == 0:
@@ -30,4 +31,3 @@ def isWinner(x, nums):
         return "Ben"
     else:
         return None
-    
